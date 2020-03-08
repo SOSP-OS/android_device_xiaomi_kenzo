@@ -1,4 +1,4 @@
-# Copyright 2017 Android Open Source Project
+# Copyright 2020 SOSP Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,18 +13,22 @@
 # limitations under the License.
 #
 
-$(call inherit-product, device/xiaomi/kenzo/full_kenzo.mk)
+# Inherit from those products. Most specific first.
+$(call inherit-product, $(SRC_TARGET_DIR)/product/core_64_bit.mk)
+$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
 
+# Inherit from the device
+$(call inherit-product, device/xiaomi/kenzo/device.mk)
 
-# Inherit some common AOSP stuff.
-$(call inherit-product, vendor/aosp/common.mk)
+# Inherit some common SOSP stuff.
+$(call inherit-product, vendor/sosp/config/common.mk)
 
 
 # Set those variables here to overwrite the inherited values.
 BOARD_VENDOR := Xiaomi
 PRODUCT_BRAND := Xiaomi
 PRODUCT_DEVICE := kenzo
-PRODUCT_NAME := aosp_kenzo
+PRODUCT_NAME := sosp_kenzo
 PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_MODEL := Redmi Note 3
 TARGET_VENDOR := Xiaomi
@@ -36,7 +40,3 @@ PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="kenzo-user 6.0.1 MMB29M V8.2.1.0.MHOCNDL release-keys"
 
 BUILD_FINGERPRINT=Xiaomi/kenzo/kenzo:6.0.1/MMB29M/V8.2.1.0.MHOCNDL:user/release-keys
-
-# Product packages
-TARGET_USE_JELLY := true
-
